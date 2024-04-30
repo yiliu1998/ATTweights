@@ -6,7 +6,7 @@ WATT <- function(y, z, X, alpha=0, epsilon=.001, method="att"){
   # alpha: trimming or truncation threshold
   # epsilon: for smooth trimming only, parameter for variance of normal CDF in 
   #          smooth trimming's tilting function
-  # method: att, trimming, re-est trimming, smooth trimming, truncation, overlap
+  # method: att, trimming, re-est trimming, smooth trimming, truncation, overlap, matching, entropy
   
   # estimate the propensity score via glm
   fit <- glm(z ~ X, family = binomial(link = "logit"))
