@@ -1,0 +1,127 @@
+---
+title: "An Illustrative Example for WATT Methods"
+author: "Yi Liu"
+date: "May 10, 2024"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
+
+We use the data from the National Health and Nutrition Examination Survey (NHANES) 2013–2014 about the impact of fish consumption on blood mercury levels as an illustrative example for different WATT methods (Zhao et al. 2019, Matsouaka and Zhou 2020).  
+
+## Data pre-processing
+
+We use the log$_2$(total blood mercury levels) as the outcome, we include age, sex, income (with missing values imputed by the median), the indicator of missing income, race, education, ever smoked and number of cigarettes smoked last month as covariates (predictors in the propensity score model), and we define the binary treatment $Z=1$ (high fish consumption) if the person had more than 12 servings of fish or shellfish in the previous month. 
+
+```{r}
+library(dplyr)
+library(ggplot2)
+data <- read.csv("Fish.csv")
+# head(data)
+
+y <- log(data$o.LBXTHG, base=2) # outcome
+z <- as.numeric(data$fish.level=="high") # treatment
+X <- data[, c("gender", "age", "income", 
+              "income.missing", "race", 
+              "education","smoking.ever", "smoking.now")] # covariates
+
+X$smoking.ever <- as.numeric(X$smoking.ever)
+
+X$race1 <- as.numeric(X$race==1)
+X$race2 <- as.numeric(X$race==2)
+X$race3 <- as.numeric(X$race==3)
+X$race4 <- as.numeric(X$race==4)
+X$race6 <- as.numeric(X$race==6)
+
+X$education1 <- as.numeric(X$education==1)
+X$education2 <- as.numeric(X$education==2)
+X$education3 <- as.numeric(X$education==3)
+X$education4 <- as.numeric(X$education==4)
+
+X <- X %>% select(-race, -education) %>% as.matrix()
+apply(X, 2, class) # check the class of each column of X
+```
+
+## Methods Implementation and Output
+
+Next, we apply different weighted average treatment effect on the treated (WATT) methods to the data considered above. First, we can source the main functions from the `WATTmethods.R` file.
+
+```{r}
+source("WATTmethods.R")
+```
+
+The file contains 3 main functions. The point estimate function `WATT()` returns the WATT estimate by a chosen method, as well as the weights on the treated (`w1`) and on the controls (`w0`). Function `WATT.bootstrap()` implements the standard bootstrap procedure for variance estimation and returns confidence interval at a user-specified coverage level (95\% as default). Finally, function `WATT.SumStat()` can return the propensity score histograms by treatment group and covariate balancing via absolute standard mean difference (ASMD) (defined in Austin et al. 2015). 
+
+For example, we can first implement the conventional ATT method:
+
+```{r}
+att <- WATT(y, z, X, method="att")
+# point estimate
+att$tau 
+
+# point estimate, standard error and confidence interval by bootstrap
+att.df <- WATT.bootstrap(y, z, X, method="att", N.boot=500)
+att.df
+```
+
+Next, we can implement our overlap WATT (OWATT) method:
+
+```{r}
+owatt <- WATT(y, z, X, method="overlap")
+# point estimate
+owatt$tau 
+
+# point estimate, standard error and confidence interval by bootstrap
+owatt.df <- WATT.bootstrap(y, z, X, method="overlap", N.boot=500)
+owatt.df
+```
+
+The implementation of other methods are similar. Here, we provide their argument specifications (`method` argument):
+
+- Trimming without re-estimating the propensity score: `trimming`, needs to specify the `alpha` parameter, ranged from $(0, 0.5)$. 
+
+- Trimming with re-estimating the propensity score: `re-est trimming`, needs to specify the `alpha` parameter, ranged from $(0, 0.5)$. 
+
+- Smooth trimming: `smooth trimming`, needs to specify the `alpha` parameter ranged from $(0, 0.5)$, and the `epsilon` parameter with suggested range $(0,0.05)$. 
+
+- Truncation: `truncation`, needs to specify the `alpha` parameter ranged from $(0, 0.5)$. 
+
+- Matching weights: `matching` (Li and Greene 2013).
+
+- Entropy weights: `entropy` (Zhou et al. 2020, Matsouaka et al. 2024). 
+
+As a final remark, we use `WATT.SumStat()` function to provide the propensity score plot and ASMD by ATT and OWATT methods. 
+
+```{r}
+WATT.SumStat(y, z, X, SumStat="PS.plot")
+```
+
+```{r}
+source("WATTmethods.R")
+att.bal <- WATT.SumStat(y, z, X, SumStat="cov.bal", method="att")
+att.bal
+owatt.bal <- WATT.SumStat(y, z, X, SumStat="cov.bal", method="overlap")
+owatt.bal
+```
+
+## Summary
+
+In this short report, we analyze the effect of fish consumption on blood mercury levels using our proposed methods by different WATT weights. This example is different from the data analysis of our main paper (Liu et al. 2023), as we do not have the issue of "lack of positivity" (propensity score of the control group is close to 1). We see that both ATT and OWATT result in similar point and variance estimates. We also see that while both methods balance the covariates well, ATT weights do better than OWATT weights, which is different from our main paper (Liu et al. 2023) where that data has lack of positivity, incuring extreme ATT weights. 
+
+## References
+
+- Zhao, Q., Small, D. S., & Bhattacharya, B. B. (2019). Sensitivity analysis for inverse probability weighting estimators via the percentile bootstrap. <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em>, 81(4), 735-761.
+
+- Matsouaka, R. A., & Zhou, Y. (2020). A framework for causal inference in the presence of extreme inverse probability weights: the role of overlap weights. <em>arXiv preprint arXiv:2011.01388</em>.
+
+- Austin, P. C., & Stuart, E. A. (2015). Moving towards best practice when using inverse probability of treatment weighting (IPTW) using the propensity score to estimate causal treatment effects in observational studies. <em>Statistics in medicine</em>, 34(28), 3661-3679.
+
+- Li, L., & Greene, T. (2013). A weighting analogue to pair matching in propensity score analysis. <em>The international journal of biostatistics</em>, 9(2), 215-234.
+
+- Zhou, Y., Matsouaka, R. A., & Thomas, L. (2020). Propensity score weighting under limited overlap and model misspecification. <em>Statistical methods in medical research</em>, 29(12), 3721-3756.
+
+- Matsouaka, R. A., Liu, Y., & Zhou, Y. (2024). Overlap, matching, or entropy weights: what are we weighting for?. <em>Communications in Statistics-Simulation and Computation</em>, 1-20. 
+
+- Liu, Y., Li, H., Zhou, Y., & Matsouaka, R. (2023). Average treatment effect on the treated, under lack of positivity. <em>arXiv preprint arXiv:2309.01334</em>.
