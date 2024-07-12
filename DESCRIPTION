@@ -6,7 +6,10 @@ Authors@R: c(
 	person("Yi", "Liu", 
 		email="yi.iu.biostat@gmail.com", 
 		role=c("aut", "cre"),
-		comment=c(ORCID="0000-0002-0935-007X"))
+		comment=c(ORCID="0000-0002-0935-007X")),
+	person("Huiyue", "Li", 
+		email="huiyue86@gmail.com", 
+		role="aut")
 	)
 Description: ATTweights: propensity score weighted estimator for different 
 	     weighted average treatment effect on the treated (WATT) estimands, 
