@@ -1,6 +1,6 @@
 Package: ATTweights
 Type: Package
-Title: Weighted ATT Estimation and Inference
+Title: Estimation and Bootstrap Inference for Weighted Average Treatment Effect on the Treated
 Version: 1.1
 Authors@R: c(
 	person("Yi", "Liu", 
