@@ -1,5 +1,5 @@
 # ATTweights
-An R function and illustrative example for weighted ATT methods (a generalization to the conventional ATT)
+An R package with illustrative example for weighted ATT methods (a generalization to the conventional ATT)
 
 The R code is maintained by Yi Liu (Please feel free to reach out at yi.liu.biostat[at]gmail[dot]com, if you have any questions). In addition, please cite the following paper:
 
