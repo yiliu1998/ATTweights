@@ -27,11 +27,11 @@ WATT(
 
 \item{weight}{propensity score weighting methods in weighted ATT estimand, valued from
 "att", "trimming", "re-est trimming", "smooth trimming", "truncation",
-"overlap", "matching", and "entropy"
-The "att" means the conventional ATT estimand
+"overlap", "matching", and "entropy";
+The "att" means the conventional ATT estimand;
 The "trimming" and "re-est trimming": "re-est trimming" will re-estimate the propensity score on the trimmed sample,
-where the "trimming" will not
-For "trimming", "re-est trimming" and "truncation", the alpha argument must be assigned
+where the "trimming" will not;
+For "trimming", "re-est trimming" and "truncation", the alpha argument must be assigned;
 For "smooth trimming", the epsilon argument must also be assigned}
 
 \item{trt.SL.library}{methods for fitting the generalized propensity score (chosen from SuperLearner package)}
