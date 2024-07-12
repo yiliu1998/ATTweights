@@ -1,9 +1,3 @@
-#' Load necessary packages
-library(SuperLearner)
-library(dplyr)
-library(ggplot2)
-# listWrappers()
-
 #' Function WATT(): implements the point estimation of a weighted ATT method
 #' @param y the outcome variable, a numeric vector
 #' @param z the binary treatment assignment, a vector, values need to be 0 or 1
@@ -12,16 +6,20 @@ library(ggplot2)
 #' @param epsilon the variance parameter for the smooth trimming method
 #' @param weight propensity score weighting methods in weighted ATT estimand, valued from
 #'               "att", "trimming", "re-est trimming", "smooth trimming", "truncation",
-#'               "overlap", "matching", and "entropy"
-#'               The "att" means the conventional ATT estimand
+#'               "overlap", "matching", and "entropy";
+#'               The "att" means the conventional ATT estimand;
 #'               The "trimming" and "re-est trimming": "re-est trimming" will re-estimate the propensity score on the trimmed sample,
-#'               where the "trimming" will not
-#'               For "trimming", "re-est trimming" and "truncation", the alpha argument must be assigned
+#'               where the "trimming" will not;
+#'               For "trimming", "re-est trimming" and "truncation", the alpha argument must be assigned;
 #'               For "smooth trimming", the epsilon argument must also be assigned
 #' @param trt.SL.library methods for fitting the generalized propensity score (chosen from SuperLearner package)
 WATT <- function(y, z, X,
                  alpha=0, epsilon=.001, weight="att",
                  trt.SL.library=c("SL.glm")){
+
+  library(SuperLearner)
+  library(dplyr)
+  library(ggplot2)
 
   # estimate the propensity score
   fit <- SuperLearner(Y=z, X=X, SL.library=trt.SL.library, family=binomial())
@@ -66,6 +64,20 @@ WATT <- function(y, z, X,
 }
 
 #' Function WATT.bootstrap(): implements the bootstrap variance estimation of the weighting estimator of a WATT estimand
+#' @param y the outcome variable, a numeric vector
+#' @param z the binary treatment assignment, a vector, values need to be 0 or 1
+#' @param X predictors for the propensity score (confounders), a matrix or a vector (if only one covariate)
+#' @param alpha trimming or truncation threshold, if using ATT trimming/truncation
+#' @param epsilon the variance parameter for the smooth trimming method
+#' @param weight propensity score weighting methods in weighted ATT estimand, valued from
+#'               "att", "trimming", "re-est trimming", "smooth trimming", "truncation",
+#'               "overlap", "matching", and "entropy";
+#'               The "att" means the conventional ATT estimand;
+#'               The "trimming" and "re-est trimming": "re-est trimming" will re-estimate the propensity score on the trimmed sample,
+#'               where the "trimming" will not;
+#'               For "trimming", "re-est trimming" and "truncation", the alpha argument must be assigned;
+#'               For "smooth trimming", the epsilon argument must also be assigned
+#' @param trt.SL.library methods for fitting the generalized propensity score (chosen from SuperLearner package)
 #' @param N.boot number of bootstrap replicates
 #' @param seed seed for random numbers, used for bootstrap sampling
 #' @param conf.level level of constructed confidence interval (using normal approximation), with default 0.95
@@ -103,9 +115,23 @@ WATT.bootstrap <- function(y, z, X,
 }
 
 #' Function WATT.SumStat(): summary statistics in propensity score analysis
+#' @param y the outcome variable, a numeric vector
+#' @param z the binary treatment assignment, a vector, values need to be 0 or 1
+#' @param X predictors for the propensity score (confounders), a matrix or a vector (if only one covariate)
+#' @param alpha trimming or truncation threshold, if using ATT trimming/truncation
+#' @param epsilon the variance parameter for the smooth trimming method
+#' @param weight propensity score weighting methods in weighted ATT estimand, valued from
+#'               "att", "trimming", "re-est trimming", "smooth trimming", "truncation",
+#'               "overlap", "matching", and "entropy";
+#'               The "att" means the conventional ATT estimand;
+#'               The "trimming" and "re-est trimming": "re-est trimming" will re-estimate the propensity score on the trimmed sample,
+#'               where the "trimming" will not;
+#'               For "trimming", "re-est trimming" and "truncation", the alpha argument must be assigned;
+#'               For "smooth trimming", the epsilon argument must also be assigned
+#' @param trt.SL.library methods for fitting the generalized propensity score (chosen from SuperLearner package)
 #' @param SumStat summary statistics need to return, chosen from
-#'                "PS.plot" - the propensity score plots by group
-#'                "cov.bal" - covariate balancing by absolute standard mean difference (by the chosen "weight")
+#'                "PS.plot" - the propensity score plots by group;
+#'                "cov.bal" - covariate balancing by absolute standard mean difference (by the chosen "weight");
 #'                "all" - return all summary statistics above
 #' Other parameters are the same in the WATT() function above
 WATT.SumStat <- function(y, z, X,
