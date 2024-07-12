@@ -10,9 +10,6 @@ install.packages("devtools")
 devtools::install_github("yiliu1998/ATTweights")
 ```
 
-## Demonstration
-An illustrative example of our package can be found [here](https://github.com/yiliu1998/ATTweights/tree/main/Example). Please download the Example.html file and open it in your browser, or please run the Example.Rmd file in your RStudio (please also put the Fish.csv file in your working path). 
-
 ## Contact 
 The R code is maintained by Yi Liu (Please feel free to reach out at yi.liu.biostat[at]gmail[dot]com, if you have any questions). 
 
