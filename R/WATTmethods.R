@@ -22,6 +22,7 @@ WATT <- function(y, z, X,
   library(ggplot2)
 
   # estimate the propensity score
+  X <- as.data.frame(X)
   fit <- SuperLearner(Y=z, X=X, SL.library=trt.SL.library, family=binomial())
   e.h <- predict(fit, X)$pred
 
