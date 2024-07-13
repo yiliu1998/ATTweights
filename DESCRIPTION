@@ -12,10 +12,12 @@ Authors@R: c(
 		role="aut"),
 	person("Yunji", "Zhou", 
 		email="zhouyj@uw.edu", 
-		role="aut"),
+		role="aut",
+		comment=c(ORCID="0000-0002-3610-9257")),
 	person("Roland", "Matsouaka", 
 		email="roland.matsouaka@duke.edu", 
-		role="aut")
+		role="aut",
+		comment=c(ORCID="0000-0002-0271-5400"))
 	)
 Description: ATTweights: propensity score weighted estimator for different 
 	     weighted average treatment effect on the treated (WATT) estimands, 
