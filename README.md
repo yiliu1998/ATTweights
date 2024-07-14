@@ -5,9 +5,17 @@ An R package with illustrative example for weighted ATT methods (a generalizatio
 To install the latest version of the R package from GitHub, please run following commands in R:
 
 ```r
-if (!require("devtools"))
-install.packages("devtools")
+if (!require("devtools")) install.packages("devtools")
 devtools::install_github("yiliu1998/ATTweights")
+```
+
+In addition, please install and load the following required packages for running function(s) in our package:
+
+```r
+if (!require("SuperLearner")) install.packages("SuperLearner")
+library(SuperLearner)
+if (!require("tidyverse")) install.packages("tidyverse")
+library(tidyverse)
 ```
 
 ## Demonstration
