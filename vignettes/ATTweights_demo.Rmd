@@ -13,14 +13,16 @@ We use the data from the National Health and Nutrition Examination Survey (NHANE
 
 ## Load packages and dataset
 
+```{r}
+library(ATTweights)
+library(SuperLearner)
+library(tidyverse)
+load(system.file("data", "Fish.Rdata", package="ATTweights"))
+```
+
 We use the log$_2$(total blood mercury levels) as the outcome, we include age, sex, income (with missing values imputed by the median), the indicator of missing income, race, education, ever smoked and number of cigarettes smoked last month as covariates (predictors in the propensity score model), and we define the binary treatment $Z=1$ (high fish consumption) if the person had more than 12 servings of fish or shellfish in the previous month. 
 
 ```{r}
-library(dplyr)
-library(ggplot2)
-library(ATTweights)
-load(system.file("data", "Fish.Rdata", package="ATTweights"))
-
 y <- log(data$o.LBXTHG, base=2) # outcome
 z <- as.numeric(data$fish.level=="high") # treatment
 X <- data[, c("gender", "age", "income", 
