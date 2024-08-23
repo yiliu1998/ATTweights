@@ -8,7 +8,7 @@ WATT.PSW.sandwich(
   y,
   z,
   X,
-  alpha = 0,
+  alpha = 0.05,
   epsilon = 0.001,
   weight = "att",
   conf.level = 0.95
@@ -26,15 +26,12 @@ WATT.PSW.sandwich(
 \item{epsilon}{the variance parameter for the smooth trimming method}
 
 \item{weight}{propensity score weighting methods in weighted ATT estimand, valued from
-"att", "trimming", "re-est trimming", "smooth trimming", "truncation",
-"overlap", "matching", and "entropy";
+"att", "trimming", "smooth trimming", "truncation", "overlap", "matching", and "entropy";
 The "att" means the conventional ATT estimand;
-The "trimming" and "re-est trimming": "re-est trimming" will re-estimate the propensity score on the trimmed sample,
-where the "trimming" will not;
-For "trimming", "re-est trimming" and "truncation", the alpha argument must be assigned;
-For "smooth trimming", the epsilon argument must also be assigned}
+For "trimming" and "truncation", the `alpha` argument must be assigned; default is 0.05;
+For "smooth trimming", the `epsilon` argument must also be assigned; default is 0.001}
 
-\item{conf.level}{level of constructed confidence interval (using normal approximation), with default 0.95}
+\item{conf.level}{level of constructed confidence interval (using normal approximation); default is 0.95}
 }
 \description{
 Sandwich variance estimation for WATT weighting estimator (only allows logistic regression model for PS)

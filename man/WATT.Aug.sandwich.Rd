@@ -4,7 +4,15 @@
 \alias{WATT.Aug.sandwich}
 \title{Augmented WATT estimation and sandwich variance (only linear model for outcomes and logistic regression for PS allowed)}
 \usage{
-WATT.Aug.sandwich(y, z, X, X.out, alpha = 0, epsilon = 0.001, weight = "att")
+WATT.Aug.sandwich(
+  y,
+  z,
+  X,
+  X.out,
+  alpha = 0.05,
+  epsilon = 0.001,
+  weight = "att"
+)
 }
 \arguments{
 \item{y}{the outcome variable, a numeric vector}
@@ -20,13 +28,12 @@ WATT.Aug.sandwich(y, z, X, X.out, alpha = 0, epsilon = 0.001, weight = "att")
 \item{epsilon}{the variance parameter for the smooth trimming method}
 
 \item{weight}{propensity score weighting methods in weighted ATT estimand, valued from
-"att", "trimming", "re-est trimming", "smooth trimming", "truncation",
-"overlap", "matching", and "entropy";
+"att", "trimming", "smooth trimming", "truncation", "overlap", "matching", and "entropy";
 The "att" means the conventional ATT estimand;
-The "trimming" and "re-est trimming": "re-est trimming" will re-estimate the propensity score on the trimmed sample,
-where the "trimming" will not;
-For "trimming", "re-est trimming" and "truncation", the alpha argument must be assigned;
-For "smooth trimming", the epsilon argument must also be assigned}
+For "trimming" and "truncation", the `alpha` argument must be assigned; default is 0.05;
+For "smooth trimming", the `epsilon` argument must also be assigned; default is 0.001}
+
+\item{conf.level}{level of constructed confidence interval (using normal approximation); default is 0.95}
 }
 \description{
 Augmented WATT estimation and sandwich variance (only linear model for outcomes and logistic regression for PS allowed)

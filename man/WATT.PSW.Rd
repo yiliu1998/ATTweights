@@ -8,7 +8,7 @@ WATT.PSW(
   y,
   z,
   X,
-  alpha = 0,
+  alpha = 0.05,
   epsilon = 0.001,
   weight = "att",
   trt.SL.library = c("SL.glm")
@@ -31,10 +31,10 @@ WATT.PSW(
 The "att" means the conventional ATT estimand;
 The "trimming" and "re-est trimming": "re-est trimming" will re-estimate the propensity score on the trimmed sample,
 where the "trimming" will not;
-For "trimming", "re-est trimming" and "truncation", the alpha argument must be assigned;
-For "smooth trimming", the epsilon argument must also be assigned}
+For "trimming", "re-est trimming" and "truncation", the `alpha` argument must be assigned;
+For "smooth trimming", the `epsilon` argument must also be assigned}
 
-\item{trt.SL.library}{methods for fitting the propensity score (chosen from SuperLearner package)}
+\item{trt.SL.library}{methods for fitting the propensity score (chosen from `SuperLearner` package)}
 }
 \description{
 Point estimation of a chosen WATT estimands, using propensity score weighting estimator

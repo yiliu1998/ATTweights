@@ -6,15 +6,13 @@
 #' @param alpha trimming or truncation threshold, if using ATT trimming/truncation
 #' @param epsilon the variance parameter for the smooth trimming method
 #' @param weight propensity score weighting methods in weighted ATT estimand, valued from
-#'               "att", "trimming", "re-est trimming", "smooth trimming", "truncation",
-#'               "overlap", "matching", and "entropy";
+#'               "att", "trimming", "smooth trimming", "truncation", "overlap", "matching", and "entropy";
 #'               The "att" means the conventional ATT estimand;
-#'               The "trimming" and "re-est trimming": "re-est trimming" will re-estimate the propensity score on the trimmed sample,
-#'               where the "trimming" will not;
-#'               For "trimming", "re-est trimming" and "truncation", the alpha argument must be assigned;
-#'               For "smooth trimming", the epsilon argument must also be assigned
+#'               For "trimming" and "truncation", the `alpha` argument must be assigned; default is 0.05;
+#'               For "smooth trimming", the `epsilon` argument must also be assigned; default is 0.001
+#' @param conf.level level of constructed confidence interval (using normal approximation); default is 0.95
 WATT.Aug.sandwich <- function(y, z, X, X.out,
-                     alpha=0, epsilon=.001, weight="att"){
+                     alpha=0.05, epsilon=0.001, weight="att"){
 
   fit <- glm(z ~ X, family = binomial(link = "logit"))
   e.h <- as.numeric(fit$fitted.values)

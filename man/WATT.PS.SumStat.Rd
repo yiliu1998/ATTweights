@@ -8,7 +8,7 @@ WATT.PS.SumStat(
   y,
   z,
   X,
-  alpha = 0,
+  alpha = 0.05,
   epsilon = 0.001,
   weight = "att",
   trt.SL.library = c("SL.glm"),
@@ -32,14 +32,14 @@ WATT.PS.SumStat(
 The "att" means the conventional ATT estimand;
 The "trimming" and "re-est trimming": "re-est trimming" will re-estimate the propensity score on the trimmed sample,
 where the "trimming" will not;
-For "trimming", "re-est trimming" and "truncation", the alpha argument must be assigned;
-For "smooth trimming", the epsilon argument must also be assigned}
+For "trimming", "re-est trimming" and "truncation", the `alpha` argument must be assigned;
+For "smooth trimming", the `epsilon` argument must also be assigned}
 
-\item{trt.SL.library}{methods for fitting the generalized propensity score (chosen from SuperLearner package)}
+\item{trt.SL.library}{methods for fitting the generalized propensity score (chosen from `SuperLearner` package)}
 
 \item{SumStat}{summary statistics need to return, chosen from
 "PS.plot" - the propensity score plots by group;
-"cov.bal" - covariate balancing by absolute standard mean difference (by the chosen "weight")}
+"cov.bal" - covariate balancing by absolute standard mean difference (by the chosen `weight`)}
 }
 \description{
 Summary statistics in propensity score analysis for WATT estimation
