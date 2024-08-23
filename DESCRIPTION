@@ -1,7 +1,7 @@
 Package: ATTweights
 Type: Package
-Title: Estimation and Bootstrap Inference for Weighted Average Treatment Effect on the Treated
-Version: 1.1
+Title: Estimation and Inference for Weighted Average Treatment Effect on the Treated
+Version: 2.0
 Authors@R: c(
 	person("Yi", "Liu", 
 		email="yi.iu.biostat@gmail.com", 
@@ -9,19 +9,8 @@ Authors@R: c(
 		comment=c(ORCID="0000-0002-0935-007X")),
 	person("Huiyue", "Li", 
 		email="huiyue86@gmail.com", 
-		role="aut"),
-	person("Yunji", "Zhou", 
-		email="zhouyj@uw.edu", 
-		role="aut",
-		comment=c(ORCID="0000-0002-3610-9257")),
-	person("Roland", "Matsouaka", 
-		email="roland.matsouaka@duke.edu", 
-		role="aut",
-		comment=c(ORCID="0000-0002-0271-5400"))
-	)
-Description: ATTweights: propensity score weighted estimator for different 
-	     weighted average treatment effect on the treated (WATT) estimands, 
-	     using bootstrap for variance estimation, with results by basic propensity score analysis
+		role="aut"))
+Description: This is an R package for weighted ATT methods (a generalization to the conventional ATT estimand). We currently include propensity score weighting and augmented estimators and their variance estimators. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.3.2
