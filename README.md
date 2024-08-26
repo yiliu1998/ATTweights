@@ -56,7 +56,7 @@ Running the following code, we can get a propensity score distribution plot by t
 WATT.PS.SumStat(y=Y, z=Z, X=X.ps)
 ```
 
-Running the following two code, we can get the point estimates, standard errors and confidence intervals by bootstrap (500 replicates) of OWATT and ATT, respectively.  
+Running the following two code, we can get the point estimates, standard errors and confidence intervals by bootstrap (500 replicates) of OWATT and ATT, respectively. This code uses PS weighting estimator.  
 
 ```r
 WATT.PSW.bootstrap(y=Y, z=Z, X=X.ps, weight="overlap", N.boot=500)
