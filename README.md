@@ -55,14 +55,14 @@ Running the following code, we can get a propensity score distribution plot by t
 
 ```r
 library(ATTweights) # assuming the latest package is installed correctly
-WATT.PS.SumStat(y=Y, z=Z, X=X.ps)
+WATT.PS.SumStat(y=Y, z=Z, X=X)
 ```
 
 Running the following two code, we can get the point estimates, standard errors and confidence intervals by bootstrap (500 replicates) of OWATT and ATT, respectively. This code uses PS weighting estimator.  
 
 ```r
-WATT.PSW.bootstrap(y=Y, z=Z, X=X.ps, weight="overlap", N.boot=500)
-WATT.PSW.bootstrap(y=Y, z=Z, X=X.ps, weight="att", N.boot=500)
+WATT.PSW.bootstrap(y=Y, z=Z, X=X, weight="overlap", N.boot=500)
+WATT.PSW.bootstrap(y=Y, z=Z, X=X, weight="att", N.boot=500)
 ```
 
 ## Contact 
