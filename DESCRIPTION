@@ -1,7 +1,7 @@
 Package: ATTweights
 Type: Package
 Title: Estimation and Inference for Weighted Average Treatment Effect on the Treated
-Version: 2.0
+Version: 2.1
 Authors@R: c(
 	person("Yi", "Liu", 
 		email="yi.iu.biostat@gmail.com", 
