@@ -24,6 +24,45 @@ if (!require("tidyverse")) install.packages("tidyverse")
 library(tidyverse)
 ```
 
+## Use
+
+Let us generate the following data to test our method: 
+
+```r
+n <- 2000
+X1 <- rnorm(n, mean=1, sd=2)
+X2 <- rnorm(n, mean=0, sd=3)
+X3 <- rt(n, df=10)
+X4 <- rbinom(n, size=20, prob=0.6*abs(sin(X1)))
+X5 <- X1*X2
+X6 <- X3^2
+X7 <- X4*X3
+
+expit <- function(x) 1/(1+exp(-x))
+beta <- c(-0.5, rep(0.1, 7))
+X.ps <- X.out <- cbind(1,X1,X2,X3,X4,X5,X6,X7)
+
+ps <- expit(X.ps%*%beta)
+Z <- rbinom(n, 1, ps)
+mean(Z)
+
+alpha <- c(5, rep(1,7))
+Y <- X.out%*%alpha + Z*15 + rnorm(n)
+```
+
+Running the following code, we can get a propensity score distribution plot by treatment group. 
+
+```r
+WATT.PS.SumStat(y=Y, z=Z, X=X.ps)
+```
+
+Running the following two code, we can get the point estimates, standard errors and confidence intervals by bootstrap (500 replicates) of OWATT and ATT, respectively.  
+
+```r
+WATT.PSW.bootstrap(y=Y, z=Z, X=X.ps, weight="overlap", N.boot=500)
+WATT.PSW.bootstrap(y=Y, z=Z, X=X.ps, weight="att", N.boot=500)
+```
+
 ## Contact 
 The R code is maintained by Yi Liu (Please feel free to reach out at  yi.liu.biostat@gmail.com, if you have any questions). 
 
