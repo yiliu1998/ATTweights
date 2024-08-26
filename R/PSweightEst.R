@@ -15,16 +15,21 @@
 #' @param trt.SL.library methods for fitting the propensity score (chosen from `SuperLearner` package)
 WATT.PSW <- function(y, z, X,
                      alpha=0.05, epsilon=0.001, weight="att",
-                     trt.SL.library=c("SL.glm")){
+                     trt.SL.library="SL.glm"){
 
   library(SuperLearner)
   library(dplyr)
   library(ggplot2)
 
   # estimate the propensity score
-  X <- as.data.frame(X)
-  fit <- SuperLearner(Y=z, X=X, SL.library=trt.SL.library, family=binomial())
-  e.h <- predict(fit, X)$pred
+  if(trt.SL.library=="SL.glm") {
+    fit <- glm(z ~ X, family = binomial(link = "logit"))
+    e.h <- as.numeric(fit$fitted.values, type="response")
+  } else {
+    X <- as.data.frame(X)
+    fit <- SuperLearner(Y=z, X=X, SL.library=trt.SL.library, family=binomial())
+    e.h <- predict(fit, X, type="response")$pred
+  }
 
   y1.h <- sum(y*z)/sum(z)
 
@@ -105,6 +110,8 @@ WATT.PSW.bootstrap <- function(y, z, X,
     }
     tau.boot[i] <- WATT.PSW(y=y[boot], z=z[boot], X=X.boot,
                             alpha=alpha, epsilon=epsilon, weight=weight, trt.SL.library=trt.SL.library)$tau
+
+    if(i%%50==0) print(paste0("bootstrap ", i, " is done."))
   }
   sd.tau <- sd(tau.boot)
   quant <- qnorm(1-(1-conf.level)/2)
