@@ -26,7 +26,7 @@ library(tidyverse)
 
 ## Use
 
-Let us generate the following data to test our method: 
+Let us generate the following data to test our method. You can copy and paste the code on your local R studio. 
 
 ```r
 n <- 2000
@@ -54,6 +54,7 @@ Y <- X.out%*%alpha + Z*15 + rnorm(n)
 Running the following code, we can get a propensity score distribution plot by treatment group. 
 
 ```r
+library(ATTweights) # assuming the latest package is installed correctly
 WATT.PS.SumStat(y=Y, z=Z, X=X.ps)
 ```
 
