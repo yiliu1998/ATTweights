@@ -40,7 +40,8 @@ X7 <- X4*X3
 
 expit <- function(x) 1/(1+exp(-x))
 beta <- c(-0.5, rep(0.1, 7))
-X.ps <- X.out <- cbind(1,X1,X2,X3,X4,X5,X6,X7)
+X <- cbind(X1,X2,X3,X4,X5,X6,X7)
+X.ps <- X.out <- cbind(1,X)
 
 ps <- expit(X.ps%*%beta)
 Z <- rbinom(n, 1, ps)
