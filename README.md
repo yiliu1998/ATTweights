@@ -1,5 +1,5 @@
 # ATTweights
-An R package with illustrative examples for weighted ATT methods (a generalization to the conventional ATT estimand). The current verison of this package can implment the following estimators: 
+`ATTweights` is an R package with illustrative examples for weighted ATT methods (a generalization to the conventional ATT estimand). The main methodology paper of `ATTweights` is [Liu et al. (2024)](https://journals.sagepub.com/doi/10.1177/09622802241269646). The current verison of this package can implment the following estimators: 
 
 * Propensity score (PS) weighting estimator for WATT, with (i) bootstrap; (ii) sandwich variance estimations. For (i), we allow users to specify different PS and outcome regression (OR) models used in `SuperLearner` R package (see <a href="https://academic.oup.com/ectj/article/21/1/C1/5056401">Chernozhukov et al. (2018)</a>). For (ii), we only allow linear model for the OR models and logistic regression for the PS model. Usually, the sandwich variance estimation is designed for parametric models. When using machine learning for PS and OR models, one can also consider a direct variance estimation by the mean square of influence functions, as the bootstrap can be time-consuming. However, for weighting estimator, its influence function under different models is still not clear in literature, so we have not yet included this variance option in the package. 
 
@@ -62,4 +62,4 @@ The R code is maintained by Yi Liu (Please feel free to reach out at  yi.liu.bio
 ## Reference
 Please cite the following paper:
 
-Liu, Y., Li, H., Zhou, Y., & Matsouaka, R. (2024). Average treatment effect on the treated, under lack of positivity. Statistical Methods in Medical Research. 
+Liu Y, Li H, Zhou Y, Matsouaka RA. Average treatment effect on the treated, under lack of positivity. Statistical Methods in Medical Research. 2024;0(0). [doi:10.1177/09622802241269646](https://journals.sagepub.com/doi/10.1177/09622802241269646)
