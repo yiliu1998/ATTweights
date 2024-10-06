@@ -15,15 +15,6 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("yiliu1998/ATTweights")
 ```
 
-In addition, please install and load the following required packages needed for some functions in our package:
-
-```r
-if (!require("SuperLearner")) install.packages("SuperLearner")
-library(SuperLearner)
-if (!require("tidyverse")) install.packages("tidyverse")
-library(tidyverse)
-```
-
 ## Use
 
 Let us generate the following data to test our method. You can copy and paste the code on your local R studio. 
