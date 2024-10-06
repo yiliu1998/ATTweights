@@ -1,7 +1,7 @@
 Package: ATTweights
 Type: Package
 Title: Estimation and Inference for Weighted Average Treatment Effect on the Treated
-Version: 2.1
+Version: 2.2
 Authors@R: c(
 	person("Yi", "Liu", 
 		email="yi.iu.biostat@gmail.com", 
@@ -10,7 +10,11 @@ Authors@R: c(
 	person("Huiyue", "Li", 
 		email="huiyue86@gmail.com", 
 		role="aut"))
-Description: This is an R package for weighted ATT methods (a generalization to the conventional ATT estimand). We currently include propensity score weighting and augmented estimators and their variance estimators. 
+Description: Implements weighted ATT methods (a generalization to the conventional ATT estimand). We include propensity score weighting and augmented estimators and their variance estimators. 
+Imports:
+	SuperLearner,
+	dplyr,
+	ggplot2
 License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.3.2
