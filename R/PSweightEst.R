@@ -17,10 +17,6 @@ WATT.PSW <- function(y, z, X,
                      alpha=0.05, epsilon=0.001, weight="att",
                      trt.SL.library="SL.glm"){
 
-  library(SuperLearner)
-  library(dplyr)
-  library(ggplot2)
-
   # estimate the propensity score
   if(trt.SL.library=="SL.glm") {
     fit <- glm(z ~ X, family = binomial(link = "logit"))
