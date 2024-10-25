@@ -23,14 +23,9 @@ WATT.PS.SumStat <- function(y, z, X,
                             SumStat="PS.plot") {
 
   # estimate the propensity score
-  if(trt.SL.library=="SL.glm") {
-    fit <- glm(z ~ X, family = binomial(link = "logit"))
-    e.h <- as.numeric(fit$fitted.values, type="response")
-  } else {
-    X <- as.data.frame(X)
+  X <- as.data.frame(X)
     fit <- SuperLearner(Y=z, X=X, SL.library=trt.SL.library, family=binomial())
     e.h <- predict(fit, X, type="response")$pred
-  }
 
   df <- data.frame(e.h=e.h, z=z)
   ps.plot <- ggplot(df, aes(x=e.h, fill=factor(z))) +
