@@ -19,8 +19,8 @@ WATT.PSW <- function(y, z, X,
 
   # estimate the propensity score
   X <- as.data.frame(X)
-    fit <- SuperLearner(Y=z, X=X, SL.library=trt.SL.library, family=binomial())
-    e.h <- predict(fit, X, type="response")$pred
+  fit <- SuperLearner(Y=z, X=X, SL.library=trt.SL.library, family=binomial())
+  e.h <- predict(fit, X, type="response")$pred
 
   y1.h <- sum(y*z)/sum(z)
 
