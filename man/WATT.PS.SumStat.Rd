@@ -11,7 +11,7 @@ WATT.PS.SumStat(
   alpha = 0.05,
   epsilon = 0.001,
   weight = "att",
-  trt.SL.library = c("SL.glm"),
+  trt.SL.library = "SL.glm",
   SumStat = "PS.plot"
 )
 }

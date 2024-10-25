@@ -24,8 +24,8 @@ WATT.PS.SumStat <- function(y, z, X,
 
   # estimate the propensity score
   X <- as.data.frame(X)
-    fit <- SuperLearner(Y=z, X=X, SL.library=trt.SL.library, family=binomial())
-    e.h <- predict(fit, X, type="response")$pred
+  fit <- SuperLearner(Y=z, X=X, SL.library=trt.SL.library, family=binomial())
+  e.h <- predict(fit, X, type="response")$pred
 
   df <- data.frame(e.h=e.h, z=z)
   ps.plot <- ggplot(df, aes(x=e.h, fill=factor(z))) +
@@ -54,7 +54,7 @@ WATT.PS.SumStat <- function(y, z, X,
   }
   ASMD <- data.frame(matrix(ASMD, nrow=1))
   colnames(ASMD) <- X.names
-  
+
   if(SumStat=="PS.plot") { return(ps.plot) }
   if(SumStat=="cov.bal") { return(ASMD) }
   if(SumStat=="all") { return(list(ps.plot=ps.plot, ASMD=ASMD)) }
