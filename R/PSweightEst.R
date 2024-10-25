@@ -18,14 +18,9 @@ WATT.PSW <- function(y, z, X,
                      trt.SL.library="SL.glm"){
 
   # estimate the propensity score
-  if(trt.SL.library=="SL.glm") {
-    fit <- glm(z ~ X, family = binomial(link = "logit"))
-    e.h <- as.numeric(fit$fitted.values, type="response")
-  } else {
-    X <- as.data.frame(X)
+  X <- as.data.frame(X)
     fit <- SuperLearner(Y=z, X=X, SL.library=trt.SL.library, family=binomial())
     e.h <- predict(fit, X, type="response")$pred
-  }
 
   y1.h <- sum(y*z)/sum(z)
 
