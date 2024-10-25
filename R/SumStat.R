@@ -43,29 +43,23 @@ WATT.PS.SumStat <- function(y, z, X,
   w1 <- WATT.PSW(y, z, X, alpha, epsilon, weight)$w1
   w0 <- WATT.PSW(y, z, X, alpha, epsilon, weight)$w0
 
-  if(class(X)[1]!="matrix") {
-    x1.mean <- sum(w1*X)/sum(w1)
-    x0.mean <- sum(w0*X)/sum(w0)
-    s1.sq <- sum(w1)/((sum(w1))^2 - sum(w1^2)) * sum(w1*(X-x1.mean)^2)
-    s0.sq <- sum(w0)/((sum(w0))^2 - sum(w0^2)) * sum(w0*(X-x0.mean)^2)
-    ASMD <- abs((x1.mean-x0.mean)/sqrt(s1.sq/2+s0.sq/2))
-  } else {
-    ASMD <- c()
-    for(j in 1:ncol(X)) {
-      x1.mean <- sum(w1*X[,j])/sum(w1)
-      x0.mean <- sum(w0*X[,j])/sum(w0)
-      s1.sq <- sum(w1)/((sum(w1))^2 - sum(w1^2)) * sum(w1*(X[,j]-x1.mean)^2)
-      s0.sq <- sum(w0)/((sum(w0))^2 - sum(w0^2)) * sum(w0*(X[,j]-x0.mean)^2)
-      ASMD[j] <- abs((x1.mean-x0.mean)/sqrt(s1.sq/2+s0.sq/2))
-    }
-    if(is.null(colnames(X))) {
-      X.names <- paste0("X", 1:ncol(X))
-    } else {
-      X.names <- colnames(X)
-    }
-    ASMD <- data.frame(matrix(ASMD, nrow=1))
-    colnames(ASMD) <- X.names
+  X <- as.matrix(X)
+  ASMD <- c()
+  for(j in 1:ncol(X)) {
+    x1.mean <- sum(w1*X[,j])/sum(w1)
+    x0.mean <- sum(w0*X[,j])/sum(w0)
+    s1.sq <- sum(w1)/((sum(w1))^2 - sum(w1^2)) * sum(w1*(X[,j]-x1.mean)^2)
+    s0.sq <- sum(w0)/((sum(w0))^2 - sum(w0^2)) * sum(w0*(X[,j]-x0.mean)^2)
+    ASMD[j] <- abs((x1.mean-x0.mean)/sqrt(s1.sq/2+s0.sq/2))
   }
+  if(is.null(colnames(X))) {
+    X.names <- paste0("X", 1:ncol(X))
+  } else {
+    X.names <- colnames(X)
+  }
+  ASMD <- data.frame(matrix(ASMD, nrow=1))
+  colnames(ASMD) <- X.names
+  
   if(SumStat=="PS.plot") { return(ps.plot) }
   if(SumStat=="cov.bal") { return(ASMD) }
   if(SumStat=="all") { return(list(ps.plot=ps.plot, ASMD=ASMD)) }
