@@ -42,8 +42,8 @@ WATT.PSW.sandwich <- function(y, z, X,
     g.h <- pnorm(1-e.h-alpha, 0, epsilon)
   }
   if(weight=="truncation") {
-    g.h <- I(e.h<=1-alpha) + (1-alpha)/alpha*I(e.h>1-alpha)*(1-e.h)/e.h
-    dg.h <- (1-alpha)/alpha*I(e.h>1-alpha)*(e.h-1)/e.h * V
+    g.h <- I(e.h<=1-alpha) + (alpha/(1-alpha))*I(e.h>1-alpha)*((1-e.h)/e.h)
+    dg.h <- (alpha/(1-alpha))*I(e.h>1-alpha)*((e.h-1)/e.h) * V
   }
 
   omega0.h <- g.h*e.h/(1-e.h)
