@@ -37,8 +37,8 @@ WATT.PSW <- function(y, z, X,
 
     if(weight=="trimming")        { tilting <- I(e.h<=1-alpha) }
     if(weight=="smooth trimming") { tilting <- pnorm(1-e.h-alpha, 0, epsilon) }
-    if(weight=="truncation")      { tilting <- I(e.h<=1-alpha) + (1-alpha)/alpha*I(e.h>1-alpha)*(1-e.h)/e.h }
-
+    if(weight=="truncation")      { tilting <- I(e.h<=1-alpha) + (alpha/(1-alpha))*I(e.h>1-alpha)*((1-e.h)/e.h) }
+    
     tau <- y1.h - sum(y*(1-z)*e.h/(1-e.h)*tilting)/sum((1-z)*e.h/(1-e.h)*tilting)
     w1 <- z
     w0 <- (1-z)*tilting*e.h/(1-e.h)
