@@ -17,6 +17,8 @@ WATT.PSW.sandwich <- function(y, z, X,
   e.h <- as.numeric(fit$fitted.values)
   n <- length(z)
   V <- cbind(1, X)
+  y <- as.numeric(y)
+  z <- as.numeric(z)
 
   if(weight=="att") {
     g.h <- 1
